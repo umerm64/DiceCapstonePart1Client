@@ -4,16 +4,15 @@ services:
     container_name: client
     build:
       context: .
+    ports:
+      - 5000:5000
     volumes:
       - clientvol:/clientdata
     networks:
       - backend
-      - proxy
 
 networks:
   backend: {}
-  proxy:
-    name: proxy_network
 
 volumes:
   clientvol:
