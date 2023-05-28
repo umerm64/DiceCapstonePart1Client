@@ -5,7 +5,7 @@ import hashlib
 if __name__ == '__main__':
     try:
         filename = '/clientdata/file.txt'
-        res = req.get('http://server/download_file')
+        res = req.get('http://server:8080/download_file')
         if (res.status_code == 200):
             f = open(filename, 'wb')
             f.write(res.content)
