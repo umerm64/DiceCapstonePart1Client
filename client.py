@@ -11,7 +11,7 @@ if __name__ == '__main__':
             f.write(res.content)
             f.close()
 
-            res = req.get('http://server:5000/checksum')
+            res = req.get('http://server:8080/checksum')
             if (res.status_code == 200) and (res.text == hashlib.md5(open(filename,'rb').read()).hexdigest()):
                 print('Correct file downloaded!')
             else:
