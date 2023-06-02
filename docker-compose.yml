@@ -8,6 +8,8 @@ services:
       - 5000:5000
     volumes:
       - clientvol:/clientdata
+    environment:
+      - SERVER_IP=${SERVER_IP}
     networks:
       - backend
 
