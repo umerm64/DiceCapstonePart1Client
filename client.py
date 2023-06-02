@@ -9,13 +9,13 @@ if __name__ == '__main__':
         if server is None: 
             raise Exception("SERVER_IP environment variable not found")
         filename = '/clientdata/file.txt'
-        res = req.get('http://server:5000/download_file')
+        res = req.get('http://'+server+':5000/download_file')
         if (res.status_code == 200):
             f = open(filename, 'wb')
             f.write(res.content)
             f.close()
 
-            res = req.get('http://server:5000/checksum')
+            res = req.get('http://'+server+':5000/checksum')
             if (res.status_code == 200) and (res.text == hashlib.md5(open(filename,'rb').read()).hexdigest()):
                 print('Correct file downloaded!')
             else:
