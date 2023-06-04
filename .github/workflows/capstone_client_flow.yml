@@ -6,6 +6,9 @@ on:
     branches:
       - 'main'
 
+env:
+  TAG: ${{ github.sha }}
+
 jobs:
   job1_build_push_image:
     runs-on: ubuntu-latest
@@ -28,7 +31,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: umerarshad123/capstone_client:latest
+          tags: ${{ secrets.docker_username }}/capstone_client:${{ env.TAG }}
 
   job2_deploy_image:
     runs-on: self-hosted
@@ -45,6 +48,6 @@ jobs:
         run: |
           cd /home/ec2-user/DiceCapstonePart1Client
           pwd
-          echo "IMAGE_TAG=${{ secrets.docker_username }}/capstone_client:${{ env.TAG }}" > .env
+          sed -i 's/${{ secrets.docker_username }}\/.*:.*/${{ secrets.docker_username }}\/capstone_client:${{ env.TAG }}/g' .env
           docker-compose up -d
 
